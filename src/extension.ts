@@ -6,7 +6,7 @@ import {PicGo} from 'picgo';
  * 获取配置
  */
 function getConfig() {
-    const config = vscode.workspace.getConfiguration('picgo-paste');
+    const config = vscode.workspace.getConfiguration('markdown-image-paste');
     return {
         picgoPath: config.get<string>('picgoPath', 'picgo'),
         autoUploadOnPaste: config.get<boolean>('autoUploadOnPaste', true)
@@ -159,6 +159,8 @@ class PicgoPasteEditProvider implements vscode.DocumentPasteEditProvider {
     ): Promise<vscode.DocumentPasteEdit[] | undefined> {
         
         const config = getConfig();
+
+        console.log('DocumentPasteEditProvider triggered with config:', config);
         
         if (!config.autoUploadOnPaste) {
             console.log('Auto upload on paste is disabled in settings');

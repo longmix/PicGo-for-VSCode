@@ -62,14 +62,14 @@
       }
     ],
     "configuration": {
-      "title": "PicGo Paste",
+    "title": "Markdown Image Paste",
       "properties": {
-        "picgo-paste.picgoPath": {
+        "markdown-image-paste.picgoPath": {
           "type": "string",
           "default": "picgo",
           "description": "Path to PicGo CLI executable"
         },
-        "picgo-paste.autoUploadOnPaste": {
+        "markdown-image-paste.autoUploadOnPaste": {
           "type": "boolean",
           "default": true,
           "description": "Automatically upload image when pasting in Markdown files"
