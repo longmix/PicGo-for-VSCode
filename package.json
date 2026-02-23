@@ -1,5 +1,5 @@
 {
-  "name": "PicGo-for-VSCode",
+  "name": "picgo-for-vscode",
   "displayName": "PicGo for VSCode extension",
   "description": "An extension for the VSCode IDE that enables users to upload images to remote hosts, including Aliyun OSS, Tencent Cloud COS, Qiuniu Image Host, Github, s.ee (sm.ms), imgurl, etc.",
   "version": "1.0.1",
@@ -62,17 +62,220 @@
       }
     ],
     "configuration": {
-      "title": "PicGo Paste",
+      "title": "Markdown Image Paste",
       "properties": {
-        "picgo-paste.picgoPath": {
+        "markdown-image-paste.picBed.uploader": {
           "type": "string",
-          "default": "picgo",
-          "description": "Path to PicGo CLI executable"
+          "enum": [
+            "smms",
+            "aliyun",
+            "github",
+            "imgur",
+            "qiniu",
+            "tcyun",
+            "upyun",
+            "weibo"
+          ],
+          "default": "",
+          "markdownDescription": "%config.picBed.uploader%"
         },
-        "picgo-paste.autoUploadOnPaste": {
+        "markdown-image-paste.picBed.current": {
+          "type": "string",
+          "enum": [
+            "smms",
+            "aliyun",
+            "github",
+            "imgur",
+            "qiniu",
+            "tcyun",
+            "upyun",
+            "weibo"
+          ],
+          "default": "smms",
+          "markdownDescription": "%config.picBed.current%"
+        },
+        "markdown-image-paste.picBed.proxy": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "%config.picBed.proxy%"
+        },
+        "markdown-image-paste.picBed.smms.token": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.aliyun.accessKeyId": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.aliyun.accessKeySecret": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.aliyun.bucket": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.aliyun.area": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.aliyun.path": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.aliyun.customUrl": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.github.repo": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "%config.picBed.github.repo.description%"
+        },
+        "markdown-image-paste.picBed.github.token": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.github.path": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.github.customUrl": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.github.branch": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.imgur.clientId": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.imgur.proxy": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.qiniu.accessKey": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.qiniu.secretKey": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.qiniu.bucket": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.qiniu.url": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.qiniu.area": {
+          "type": "string",
+          "enum": [
+            "z0",
+            "z1",
+            "z2",
+            "na0",
+            "as0"
+          ],
+          "default": "z0"
+        },
+        "markdown-image-paste.picBed.qiniu.options": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.qiniu.path": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.tcyun.version": {
+          "type": "string",
+          "enum": [
+            "v4",
+            "v5"
+          ],
+          "default": "v5"
+        },
+        "markdown-image-paste.picBed.tcyun.secretId": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.tcyun.secretKey": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.tcyun.bucket": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.tcyun.appId": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.tcyun.area": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.tcyun.path": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.tcyun.customUrl": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.upyun.bucket": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.upyun.operator": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.upyun.password": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.upyun.options": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.upyun.path": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.upyun.url": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.weibo.chooseCookie": {
+          "type": "boolean",
+          "default": true
+        },
+        "markdown-image-paste.picBed.weibo.username": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.picBed.weibo.quality": {
+          "type": "string",
+          "enum": [
+            "thumbnail",
+            "mw690",
+            "large"
+          ],
+          "default": "large"
+        },
+        "markdown-image-paste.picBed.weibo.cookie": {
+          "type": "string",
+          "default": ""
+        },
+        "markdown-image-paste.autoUploadOnPaste": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically upload image when pasting in Markdown files"
+          "description": "%config.autoUploadOnPaste%"
         }
       }
     }
