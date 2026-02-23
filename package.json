@@ -1,0 +1,91 @@
+{
+  "name": "PicGo-for-VSCode",
+  "displayName": "PicGo for VSCode extension",
+  "description": "An extension for the VSCode IDE that enables users to upload images to remote hosts, including Aliyun OSS, Tencent Cloud COS, Qiuniu Image Host, Github, s.ee (sm.ms), imgurl, etc.",
+  "version": "1.0.1",
+  "publisher": "longmix",
+  "license": "MIT",
+  "icon": "icon.jpg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/longmix/PicGo-for-VSCode.git"
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "picgo-paste.uploadFromClipboard",
+        "title": "markdown: Upload and Paste Image from Clipboard"
+      },
+      {
+        "command": "picgo-paste.uploadFromFinder",
+        "title": "markdown: Upload and Paste Image by Choosing File"
+      },
+      {
+        "command": "picgo-paste.uploadFromInput",
+        "title": "markdown: Upload and Paste Image from Input Path"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "picgo-paste.uploadFromClipboard",
+        "key": "ctrl+alt+u",
+        "mac": "cmd+alt+u",
+        "when": "editorTextFocus && editorLangId == markdown"
+      },
+      {
+        "command": "picgo-paste.uploadFromFinder",
+        "key": "ctrl+alt+e",
+        "mac": "cmd+alt+e",
+        "when": "editorTextFocus && editorLangId == markdown"
+      },
+      {
+        "command": "picgo-paste.uploadFromInput",
+        "key": "ctrl+alt+o",
+        "mac": "cmd+alt+o",
+        "when": "editorTextFocus && editorLangId == markdown"
+      }
+    ],
+    "configuration": {
+      "title": "PicGo Paste",
+      "properties": {
+        "picgo-paste.picgoPath": {
+          "type": "string",
+          "default": "picgo",
+          "description": "Path to PicGo CLI executable"
+        },
+        "picgo-paste.autoUploadOnPaste": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically upload image when pasting in Markdown files"
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^18.x",
+    "@types/vscode": "^1.95.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "picgo": "^2.0.2"
+  }
+}
