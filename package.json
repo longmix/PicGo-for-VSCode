@@ -5,7 +5,7 @@
   "version": "1.0.1",
   "publisher": "longmix",
   "license": "MIT",
-  "icon": "icon.jpg",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/longmix/PicGo-for-VSCode.git"
@@ -23,39 +23,45 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:markdown"
+    "onLanguage:markdown",
+    "onCommand:picgo-for-vscode.uploadFromClipboard",
+    "onCommand:picgo-for-vscode.uploadFromFinder",
+    "onCommand:picgo-for-vscode.uploadFromInput",
+    "onCommand:picgo-for-vscode.webviewDemo",
+    "onCommand:picgo-for-vscode.webviewPicGoControlPanel",
+    "workspaceContains:vs-picgo-auto-launch.txt"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "picgo-paste.uploadFromClipboard",
+        "command": "picgo-for-vscode.uploadFromClipboard",
         "title": "markdown: Upload and Paste Image from Clipboard"
       },
       {
-        "command": "picgo-paste.uploadFromFinder",
+        "command": "picgo-for-vscode.uploadFromFinder",
         "title": "markdown: Upload and Paste Image by Choosing File"
       },
       {
-        "command": "picgo-paste.uploadFromInput",
+        "command": "picgo-for-vscode.uploadFromInput",
         "title": "markdown: Upload and Paste Image from Input Path"
       }
     ],
     "keybindings": [
       {
-        "command": "picgo-paste.uploadFromClipboard",
+        "command": "picgo-for-vscode.uploadFromClipboard",
         "key": "ctrl+alt+u",
         "mac": "cmd+alt+u",
         "when": "editorTextFocus && editorLangId == markdown"
       },
       {
-        "command": "picgo-paste.uploadFromFinder",
+        "command": "picgo-for-vscode.uploadFromFinder",
         "key": "ctrl+alt+e",
         "mac": "cmd+alt+e",
         "when": "editorTextFocus && editorLangId == markdown"
       },
       {
-        "command": "picgo-paste.uploadFromInput",
+        "command": "picgo-for-vscode.uploadFromInput",
         "key": "ctrl+alt+o",
         "mac": "cmd+alt+o",
         "when": "editorTextFocus && editorLangId == markdown"

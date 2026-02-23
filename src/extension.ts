@@ -263,7 +263,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 注册手动上传命令 (Cmd+Alt+U)
     const uploadCommand = vscode.commands.registerCommand(
-        'picgo-paste.uploadFromClipboard',
+        'picgo-for-vscode.uploadFromClipboard',
         async () => {
 
             const editor = vscode.window.activeTextEditor;
@@ -283,7 +283,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 注册从文件选择器上传命令 (Cmd+Alt+E)
     const uploadFromFinderCommand = vscode.commands.registerCommand(
-        'picgo-paste.uploadFromFinder',
+        'picgo-for-vscode.uploadFromFinder',
         async () => {
             const editor = vscode.window.activeTextEditor;
             if (!editor) {
@@ -318,7 +318,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 注册从输入路径上传命令 (Cmd+Alt+O)
     const uploadFromInputCommand = vscode.commands.registerCommand(
-        'picgo-paste.uploadFromInput',
+        'picgo-for-vscode.uploadFromInput',
         async () => {
             const editor = vscode.window.activeTextEditor;
             if (!editor) {
