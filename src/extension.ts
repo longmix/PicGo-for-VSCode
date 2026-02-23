@@ -1,18 +1,21 @@
 import * as vscode from 'vscode';
 
 import {PicGo} from 'picgo';
+import { ConfigManager } from './ConfigManager';
+import { config } from 'process';
 
 /**
  * 获取配置
  */
-function getConfig() {
-    const config = vscode.workspace.getConfiguration('markdown-image-paste');
-    return {
-        picgoPath: config.get<string>('picgoPath', 'picgo'),
-        autoUploadOnPaste: config.get<boolean>('autoUploadOnPaste', true)
-    };
-}
+function getExtensionConfig() {
+    //const config = vscode.workspace.getConfiguration('markdown-image-paste');
 
+    const config = ConfigManager.getConfig();
+
+    console.log('Loaded configuration:', config);
+
+    return config;
+}
 
 /**
  * 在编辑器中插入 Markdown 图片链接
@@ -59,6 +62,44 @@ async function uploadImageByPicgo(editor: vscode.TextEditor, imagePath: string="
         // 初始化PicGo实例
         const picgo = new PicGo();
 
+        // 设置项
+        const extension_config = getExtensionConfig();
+        console.log('Manual upload command triggered with extension config:', extension_config);
+
+        // 接口说明： https://docs.picgo.app/core/api/#setconfig-config
+        const current_config_name = 'picBed.' + extension_config.picgoCurrent;
+
+        //picgo.removeConfig('picBed', 'current');
+        //picgo.removeConfig('picBed', extension_config.picgoCurrent);
+        //picgo.removeConfig('picBed', 'uploader');
+
+        var configToSet: any = {
+            'picBed.uploader': extension_config.picgoCurrent,
+            'picBed.current': extension_config.picgoCurrent,
+            [current_config_name]: extension_config.current_config
+        };
+
+        // 如果设置了代理服务器，添加到配置中
+        if (extension_config.picogoProxy && (extension_config.picogoProxy.trim() !== '')) {
+            configToSet['picBed.proxy'] = extension_config.picogoProxy;
+        }
+
+        picgo.setConfig(configToSet);
+
+        /*picgo.saveConfig({
+            'picBed.uploader': extension_config.picgoCurrent,
+            'picBed.current': extension_config.picgoCurrent,
+            [current_config_name]: extension_config.current_config
+        });*/
+
+        console.log('PicGo configuration set successfully:', {
+            'picBed.current': picgo.getConfig('picBed.current'),
+            [current_config_name]: picgo.getConfig(current_config_name)
+        });
+
+        //return null;
+
+
         // 设置PicGo输入（要上传的文件）
         //picgo.input = [imagePath];
         // 执行上传
@@ -79,12 +120,16 @@ async function uploadImageByPicgo(editor: vscode.TextEditor, imagePath: string="
             result001 = await picgo.upload();
         }
 
-        console.log('上传成功：', result001);
+        console.log('上传完成，返回结果：', result001);
 
         // 解析上传结果
         const parsedResult = parseUploadResult(result001);
         if (!parsedResult) {
             vscode.window.showErrorMessage('Failed to parse upload result');
+            return null;
+        }
+        else if (!parsedResult.imgUrl || parsedResult.imgUrl.trim() === '') {
+            vscode.window.showErrorMessage(`Failure to get image URL for ${parsedResult.fileName}`);
             return null;
         }
 
@@ -117,9 +162,9 @@ function parseUploadResult(result: any) : UploadResult | null {
     }
 
     const imgUrl = result[0].imgUrl;
-    console.log('上传成功，图片URL：', imgUrl);
+    console.log('图片URL：', imgUrl);
     const fileName = result[0].fileName;
-    console.log('上传成功，文件名：', fileName);
+    console.log('文件名：', fileName);
     const width = result[0].width;
     const height = result[0].height;
     console.log(`图片尺寸：${width}x${height}`);
@@ -158,7 +203,8 @@ class PicgoPasteEditProvider implements vscode.DocumentPasteEditProvider {
         token: vscode.CancellationToken
     ): Promise<vscode.DocumentPasteEdit[] | undefined> {
         
-        const config = getConfig();
+        // 读取配置项，确认是否开启自动上传来自Ctrl+V的图片功能
+        const config = getExtensionConfig();
 
         console.log('DocumentPasteEditProvider triggered with config:', config);
         
@@ -215,7 +261,7 @@ class PicgoPasteEditProvider implements vscode.DocumentPasteEditProvider {
 export function activate(context: vscode.ExtensionContext) {
     console.log('PicGo Paste extension is now active!');
 
-    // 注册手动上传命令 (Cmd+Alt+V)
+    // 注册手动上传命令 (Cmd+Alt+U)
     const uploadCommand = vscode.commands.registerCommand(
         'picgo-paste.uploadFromClipboard',
         async () => {
