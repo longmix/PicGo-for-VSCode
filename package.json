@@ -10,11 +10,14 @@
     "type": "git",
     "url": "https://github.com/longmix/PicGo-for-VSCode.git"
   },
+  "main": "./dist/extension.js",
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "lint": "eslint src --ext ts"
+    "compile": "webpack --mode production",
+    "package": "npm run compile && vsce package",
+    "vscode:prepublish001": "npm run compile",
+    "compile001": "tsc -p ./",
+    "watch001": "tsc -watch -p ./",
+    "lint001": "eslint src --ext ts"
   },
   "engines": {
     "vscode": "^1.95.0"
@@ -31,8 +34,36 @@
     "onCommand:picgo-for-vscode.webviewPicGoControlPanel",
     "workspaceContains:vs-picgo-auto-launch.txt"
   ],
-  "main": "./out/extension.js",
   "contributes": {
+    "localizations": [
+      {
+        "language": "en",
+        "translations": [
+          {
+            "id": "vscode",
+            "path": "./package.nls.json"
+          }
+        ]
+      },
+      {
+        "language": "zh-cn",
+        "translations": [
+          {
+            "id": "vscode",
+            "path": "./package.nls.zh-cn.json"
+          }
+        ]
+      },
+      {
+        "language": "zh-tw",
+        "translations": [
+          {
+            "id": "vscode",
+            "path": "./package.nls.zh-tw.json"
+          }
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "picgo-for-vscode.uploadFromClipboard",
@@ -291,8 +322,12 @@
     "@types/vscode": "^1.95.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/vsce": "^3.7.1",
     "eslint": "^8.0.0",
-    "typescript": "^5.0.0"
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.0.0",
+    "webpack": "^5.105.2",
+    "webpack-cli": "^6.0.1"
   },
   "dependencies": {
     "picgo": "^2.0.2"
