@@ -9,7 +9,11 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   externals: {
-    vscode: 'commonjs vscode' // VSCode API 由运行时提供
+    vscode: 'commonjs vscode', // VSCode API 由运行时提供
+    'child_process': 'commonjs child_process',
+    'fs': 'commonjs fs',
+    'path': 'commonjs path',
+    'os': 'commonjs os'
   },
   resolve: {
     extensions: ['.ts', '.js']

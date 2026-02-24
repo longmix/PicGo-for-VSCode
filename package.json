@@ -30,40 +30,9 @@
     "onCommand:picgo-for-vscode.uploadFromClipboard",
     "onCommand:picgo-for-vscode.uploadFromFinder",
     "onCommand:picgo-for-vscode.uploadFromInput",
-    "onCommand:picgo-for-vscode.webviewDemo",
-    "onCommand:picgo-for-vscode.webviewPicGoControlPanel",
-    "workspaceContains:vs-picgo-auto-launch.txt"
+    "workspaceContains:picgo-for-vscode-auto-launch.txt"
   ],
   "contributes": {
-    "localizations": [
-      {
-        "language": "en",
-        "translations": [
-          {
-            "id": "vscode",
-            "path": "./package.nls.json"
-          }
-        ]
-      },
-      {
-        "language": "zh-cn",
-        "translations": [
-          {
-            "id": "vscode",
-            "path": "./package.nls.zh-cn.json"
-          }
-        ]
-      },
-      {
-        "language": "zh-tw",
-        "translations": [
-          {
-            "id": "vscode",
-            "path": "./package.nls.zh-tw.json"
-          }
-        ]
-      }
-    ],
     "commands": [
       {
         "command": "picgo-for-vscode.uploadFromClipboard",
