@@ -109,6 +109,8 @@ async function uploadImageByPicgo(editor: vscode.TextEditor, imagePath: string="
 
         // 直接从返回值获取结果
         var result001 = null;
+
+        // 
         
         if (imagePath && (imagePath.trim() !== '')) {
             console.log('正在上传图片：', imagePath);
@@ -129,7 +131,10 @@ async function uploadImageByPicgo(editor: vscode.TextEditor, imagePath: string="
             return null;
         }
         else if (!parsedResult.imgUrl || parsedResult.imgUrl.trim() === '') {
+            //vscode.window.showErrorMessage(vscode.l10n.t('message.extension.failureToUpload', { fileName: parsedResult.fileName }));
             vscode.window.showErrorMessage(`Failure to get image URL for ${parsedResult.fileName}`);
+            // 将错误信息 parsedResult 转为字符串，显示在 VSCode 的输出面板中，帮助用户排查问题
+            //vscode.window.showErrorMessage(`Failure to get image URL for ${parsedResult.fileName}`, { modal: true });
             return null;
         }
 
@@ -148,6 +153,7 @@ async function uploadImageByPicgo(editor: vscode.TextEditor, imagePath: string="
 
     } catch (error) {
         console.error('PicGo上传失败:', error);
+        vscode.window.showErrorMessage('Image upload failed!' + (error as Error).message);
         return null;
     }
 }
@@ -263,7 +269,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 注册手动上传命令 (Cmd+Alt+U)
     const uploadCommand = vscode.commands.registerCommand(
-        'picgo-paste.uploadFromClipboard',
+        'picgo-for-vscode.uploadFromClipboard',
         async () => {
 
             const editor = vscode.window.activeTextEditor;
@@ -283,7 +289,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 注册从文件选择器上传命令 (Cmd+Alt+E)
     const uploadFromFinderCommand = vscode.commands.registerCommand(
-        'picgo-paste.uploadFromFinder',
+        'picgo-for-vscode.uploadFromFinder',
         async () => {
             const editor = vscode.window.activeTextEditor;
             if (!editor) {
@@ -295,7 +301,7 @@ export function activate(context: vscode.ExtensionContext) {
             } else {
                 const options: vscode.OpenDialogOptions = {
                     canSelectMany: false,
-                    openLabel: 'Upload with PicGo',
+                    openLabel: 'Upload and Paste',
                     filters: {
                         'Images': ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp']
                     }
@@ -318,7 +324,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 注册从输入路径上传命令 (Cmd+Alt+O)
     const uploadFromInputCommand = vscode.commands.registerCommand(
-        'picgo-paste.uploadFromInput',
+        'picgo-for-vscode.uploadFromInput',
         async () => {
             const editor = vscode.window.activeTextEditor;
             if (!editor) {

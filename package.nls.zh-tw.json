@@ -23,5 +23,9 @@
   "config.picBed.github.description": "GitHub configuration.",
   "config.picBed.github.repo.description": "`Username/Repo`. 例如：PicGo/Images",
   "config.picBed.aliyun.description": "Aliyun OSS configuration.",
-  "config.picBed.imgur.description": "Imgur picBed configuration."
+  "config.picBed.imgur.description": "Imgur picBed configuration.",
+  "message.extension.failureToUpload": "获取图片网址失败：${fileName}",
+  "message.extension.successToUpload": "Image uploaded successfully: ${url}",
+  "message.extension.noImageToUpload": "No image to upload.",
+  "message.extension.invalidImagePath": "Invalid image path: ${path}"
 }
