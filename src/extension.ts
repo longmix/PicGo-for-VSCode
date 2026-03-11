@@ -366,6 +366,41 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(pasteProvider);
 
     console.log('PicGo Paste: DocumentPasteEditProvider registered for Markdown files');
+
+
+    // 2026.06.17 新增：注册一个测试用的 WebView 命令，验证 WebView 功能是否正常
+    const myWebViewDemoCommand = vscode.commands.registerCommand(
+        'picgo-for-vscode.myWebViewDemo',
+        async () => {
+            const panel = vscode.window.createWebviewPanel(
+                'myWebViewDemo', // 内部标识
+                'My WebView Demo', // 面板标题
+                vscode.ViewColumn.One, // 显示在第一列
+                {
+                    enableScripts: true // 允许在 WebView 中运行脚本
+                }
+            );
+
+            // 设置 WebView 内容
+            panel.webview.html = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>My WebView Demo</title>
+                </head>
+                <body>
+                    <h1>Hello from My WebView Demo!</h1>
+                    <p>This is a test WebView to verify that WebView functionality is working correctly.</p>
+                </body>
+                </html>
+            `;
+        }
+    );
+    context.subscriptions.push(myWebViewDemoCommand);
+
+    console.log('PicGo Paste: myWebViewDemo command registered');
 }
 
 /**

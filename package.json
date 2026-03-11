@@ -30,7 +30,8 @@
     "onCommand:picgo-for-vscode.uploadFromClipboard",
     "onCommand:picgo-for-vscode.uploadFromFinder",
     "onCommand:picgo-for-vscode.uploadFromInput",
-    "workspaceContains:picgo-for-vscode-auto-launch.txt"
+    "workspaceContains:picgo-for-vscode-auto-launch.txt",
+    "onCommand:picgo-for-vscode.myWebViewDemo"
   ],
   "contributes": {
     "commands": [
@@ -45,6 +46,10 @@
       {
         "command": "picgo-for-vscode.uploadFromInput",
         "title": "markdown: Upload and Paste Image from Input Path"
+      },
+      {
+        "command": "picgo-for-vscode.myWebViewDemo",
+        "title": "markdown: My WebView Demo"
       }
     ],
     "keybindings": [
@@ -66,6 +71,7 @@
         "mac": "cmd+alt+o",
         "when": "editorTextFocus && editorLangId == markdown"
       }
+      
     ],
     "configuration": {
       "title": "Markdown Image Paste",
